@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api, { type Checklist } from '../services/api';
 import cl from '../styles/checklist.module.css';
 import s from './ChecklistDetail.module.css';
+import { formatDate, formatTime, STATUS_LABELS } from '../utils';
 
 export default function ChecklistDetail() {
   const { id } = useParams<{ id: string }>();
@@ -28,21 +29,8 @@ export default function ChecklistDetail() {
   const durationMs = end ? end.getTime() - start.getTime() : 0;
   const durationMin = Math.round(durationMs / 60000);
 
-  const formatDate = (d: Date) =>
-    d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-
-  const formatTime = (d: Date) =>
-    d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-
   const formatDateTime = (d: Date) =>
     `${d.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' })}, ${formatTime(d)}`;
-
-  const statusLabel: Record<string, string> = {
-    in_progress: 'In Progress',
-    submitted: 'Submitted',
-    approved: 'Approved',
-    denied: 'Denied',
-  };
 
   const currentMachine = checklist.machines[activeMachine];
 
@@ -103,7 +91,7 @@ export default function ChecklistDetail() {
           <div className={s.detailMetaItem}>
             <span className={s.detailMetaLabel}>STATUS</span>
             <span className={s.detailMetaValue}>
-              {statusLabel[checklist.status] || checklist.status}
+              {STATUS_LABELS[checklist.status] || checklist.status}
             </span>
           </div>
         </div>

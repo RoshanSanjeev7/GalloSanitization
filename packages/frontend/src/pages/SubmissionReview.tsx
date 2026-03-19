@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api, { type Checklist } from '../services/api';
 import cl from '../styles/checklist.module.css';
 import s from './SubmissionReview.module.css';
+import { formatTime, formatFullDate } from '../utils';
 
 export default function SubmissionReview() {
   const { id } = useParams<{ id: string }>();
@@ -44,17 +45,6 @@ export default function SubmissionReview() {
   const durationMs = end ? end.getTime() - start.getTime() : 0;
   const durationMin = Math.round(durationMs / 60000);
 
-  const formatTime = (d: Date) =>
-    d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-
-  const formatDate = (d: Date) =>
-    d.toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    });
-
   const machineStats = checklist.machines.map((m) => {
     const items = m.categories.flatMap((c) => c.items);
     return {
@@ -95,7 +85,7 @@ export default function SubmissionReview() {
 
         <h2 style={{ marginBottom: 2 }}>{checklist.lineName} - Submission Review</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: 13, marginBottom: 20 }}>
-          {formatDate(start)} - {formatTime(start)}
+          {formatFullDate(start)} - {formatTime(start)}
         </p>
 
         <select

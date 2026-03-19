@@ -8,6 +8,7 @@ import StatusBadge from '../components/StatusBadge';
 import Footer from '../components/Footer';
 import Modal from '../components/Modal';
 import d from '../styles/dashboard.module.css';
+import { formatDate, formatTime } from '../utils';
 
 type Tab = 'all' | 'in_progress' | 'submitted' | 'completed';
 
@@ -76,24 +77,6 @@ export default function OperatorDashboard() {
     setDeleteTarget(null);
   };
 
-  const formatDate = (iso: string) => {
-    const dt = new Date(iso);
-    return dt.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  };
-
-  const formatTime = (iso: string) => {
-    const dt = new Date(iso);
-    return dt.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    });
-  };
-
   const now = new Date();
   const greeting = `${now.toLocaleDateString('en-US', {
     weekday: 'long',
@@ -146,7 +129,7 @@ export default function OperatorDashboard() {
               <div className={d.dashRowInfo}>
                 <span className={d.dashRowLine}>{cl.lineName}</span>
                 <span className={d.dashRowSub}>
-                  {formatDate(cl.startTime)} &middot; {formatTime(cl.startTime)}
+                  {formatDate(new Date(cl.startTime))} &middot; {formatTime(new Date(cl.startTime))}
                 </span>
               </div>
               <div className={d.dashRowRight}>

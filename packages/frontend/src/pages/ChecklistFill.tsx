@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api, { type Checklist, type ChecklistMachine } from '../services/api';
 import cl from '../styles/checklist.module.css';
 import s from './ChecklistFill.module.css';
+import { formatTime } from '../utils';
 
 export default function ChecklistFill() {
   const { id } = useParams<{ id: string }>();
@@ -112,11 +113,6 @@ export default function ChecklistFill() {
 
   const currentMachine = machines[activeMachine];
 
-  const formatStamp = (iso: string) => {
-    const d = new Date(iso);
-    return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-  };
-
   return (
     <div className="page-container">
       <div className="main-content">
@@ -200,7 +196,7 @@ export default function ChecklistFill() {
                         {item.completed !== null && item.completedBy && (
                           <span className={cl.fillStamp}>
                             {item.completedBy}
-                            {item.completedAt ? ` at ${formatStamp(item.completedAt)}` : ''}
+                            {item.completedAt ? ` at ${formatTime(new Date(item.completedAt))}` : ''}
                           </span>
                         )}
                         <button
