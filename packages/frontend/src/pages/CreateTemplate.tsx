@@ -32,9 +32,7 @@ export default function CreateTemplate() {
   }, []);
 
   const updateMachineName = (idx: number, name: string) => {
-    setMachines((prev) =>
-      prev.map((m, i) => (i === idx ? { ...m, name } : m))
-    );
+    setMachines((prev) => prev.map((m, i) => (i === idx ? { ...m, name } : m)));
   };
 
   const addMachine = () => {
@@ -58,11 +56,9 @@ export default function CreateTemplate() {
         if (mi !== activeMachine) return m;
         return {
           ...m,
-          categories: m.categories.map((c, ci) =>
-            ci === catIdx ? { ...c, name } : c
-          ),
+          categories: m.categories.map((c, ci) => (ci === catIdx ? { ...c, name } : c)),
         };
-      })
+      }),
     );
   };
 
@@ -74,7 +70,7 @@ export default function CreateTemplate() {
           ...m,
           categories: [...m.categories, { name: '', tasks: [{ description: '' }] }],
         };
-      })
+      }),
     );
   };
 
@@ -86,7 +82,7 @@ export default function CreateTemplate() {
           ...m,
           categories: m.categories.filter((_, ci) => ci !== catIdx),
         };
-      })
+      }),
     );
   };
 
@@ -100,13 +96,11 @@ export default function CreateTemplate() {
             if (ci !== catIdx) return c;
             return {
               ...c,
-              tasks: c.tasks.map((t, ti) =>
-                ti === taskIdx ? { ...t, description } : t
-              ),
+              tasks: c.tasks.map((t, ti) => (ti === taskIdx ? { ...t, description } : t)),
             };
           }),
         };
-      })
+      }),
     );
   };
 
@@ -121,7 +115,7 @@ export default function CreateTemplate() {
             return { ...c, tasks: [...c.tasks, { description: '' }] };
           }),
         };
-      })
+      }),
     );
   };
 
@@ -136,7 +130,7 @@ export default function CreateTemplate() {
             return { ...c, tasks: c.tasks.filter((_, ti) => ti !== taskIdx) };
           }),
         };
-      })
+      }),
     );
   };
 
@@ -202,7 +196,14 @@ export default function CreateTemplate() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: 12,
+          }}
+        >
           <h3 style={{ fontSize: 15 }}>Machines</h3>
           <button className={s.addLink} onClick={addMachine}>
             + Add Machine
@@ -222,7 +223,14 @@ export default function CreateTemplate() {
         </div>
 
         <div className="card" style={{ marginBottom: 16, padding: 20 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 12,
+            }}
+          >
             <span className={s.sectionHeader}>MACHINE NAME</span>
             {machines.length > 1 && (
               <button className={s.removeBtn} onClick={() => removeMachine(activeMachine)}>
@@ -238,7 +246,14 @@ export default function CreateTemplate() {
             style={{ marginBottom: 20 }}
           />
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 12,
+            }}
+          >
             <h3 style={{ fontSize: 14 }}>Categories</h3>
             <button className={s.addLink} onClick={addCategory}>
               + Add Category
@@ -247,7 +262,9 @@ export default function CreateTemplate() {
 
           {currentMachine.categories.map((cat, catIdx) => (
             <div key={catIdx} className={s.templateSection}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              >
                 <span className={s.sectionHeader}>CATEGORY NAME</span>
                 {currentMachine.categories.length > 1 && (
                   <button className={s.removeBtn} onClick={() => removeCategory(catIdx)}>
@@ -273,10 +290,7 @@ export default function CreateTemplate() {
                     onChange={(e) => updateTask(catIdx, taskIdx, e.target.value)}
                   />
                   {cat.tasks.length > 1 && (
-                    <button
-                      className={s.removeBtn}
-                      onClick={() => removeTask(catIdx, taskIdx)}
-                    >
+                    <button className={s.removeBtn} onClick={() => removeTask(catIdx, taskIdx)}>
                       &times;
                     </button>
                   )}
@@ -293,11 +307,7 @@ export default function CreateTemplate() {
           <button className="btn btn-outline" onClick={() => navigate('/admin')}>
             Cancel
           </button>
-          <button
-            className="btn btn-primary"
-            onClick={handleCreate}
-            disabled={!title || !lineId}
-          >
+          <button className="btn btn-primary" onClick={handleCreate} disabled={!title || !lineId}>
             Create Template
           </button>
         </div>

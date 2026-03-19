@@ -12,9 +12,9 @@ router.get('/', (req: AuthRequest, res) => {
   let checklists = [...store.checklists];
 
   const { status, operatorId, lineId } = req.query;
-  if (status) checklists = checklists.filter(c => c.status === status);
-  if (operatorId) checklists = checklists.filter(c => c.operatorId === operatorId);
-  if (lineId) checklists = checklists.filter(c => c.lineId === lineId);
+  if (status) checklists = checklists.filter((c) => c.status === status);
+  if (operatorId) checklists = checklists.filter((c) => c.operatorId === operatorId);
+  if (lineId) checklists = checklists.filter((c) => c.lineId === lineId);
 
   // Sort newest first
   checklists.sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
@@ -23,7 +23,7 @@ router.get('/', (req: AuthRequest, res) => {
 
 router.get('/:id', (req, res) => {
   const store = getStore();
-  const checklist = store.checklists.find(c => c.id === req.params.id);
+  const checklist = store.checklists.find((c) => c.id === req.params.id);
   if (!checklist) {
     res.status(404).json({ error: 'Checklist not found' });
     return;
@@ -35,20 +35,20 @@ router.post('/', (req: AuthRequest, res) => {
   const { lineId } = req.body;
   const store = getStore();
 
-  const line = store.lines.find(l => l.id === lineId);
+  const line = store.lines.find((l) => l.id === lineId);
   if (!line) {
     res.status(404).json({ error: 'Line not found' });
     return;
   }
 
-  const user = store.users.find(u => u.id === req.userId);
+  const user = store.users.find((u) => u.id === req.userId);
   if (!user) {
     res.status(404).json({ error: 'User not found' });
     return;
   }
 
   // Find a template for this line, or use the first template
-  const template = store.templates.find(t => t.lineId === lineId) || store.templates[0];
+  const template = store.templates.find((t) => t.lineId === lineId) || store.templates[0];
   if (!template) {
     res.status(400).json({ error: 'No template available for this line' });
     return;
@@ -64,11 +64,11 @@ router.post('/', (req: AuthRequest, res) => {
     status: 'in_progress' as const,
     startTime: new Date().toISOString(),
     endTime: null,
-    machines: template.machines.map(m => ({
+    machines: template.machines.map((m) => ({
       name: m.name,
-      categories: m.categories.map(c => ({
+      categories: m.categories.map((c) => ({
         name: c.name,
-        items: c.tasks.map(t => ({
+        items: c.tasks.map((t) => ({
           description: t.description,
           machine: t.machine,
           completed: null,
@@ -88,7 +88,7 @@ router.post('/', (req: AuthRequest, res) => {
 router.put('/:id/items', (req: AuthRequest, res) => {
   const { machines } = req.body;
   const store = getStore();
-  const checklist = store.checklists.find(c => c.id === req.params.id);
+  const checklist = store.checklists.find((c) => c.id === req.params.id);
 
   if (!checklist) {
     res.status(404).json({ error: 'Checklist not found' });
@@ -110,7 +110,7 @@ router.put('/:id/items', (req: AuthRequest, res) => {
 
 router.post('/:id/submit', (req: AuthRequest, res) => {
   const store = getStore();
-  const checklist = store.checklists.find(c => c.id === req.params.id);
+  const checklist = store.checklists.find((c) => c.id === req.params.id);
 
   if (!checklist) {
     res.status(404).json({ error: 'Checklist not found' });
@@ -125,7 +125,7 @@ router.post('/:id/submit', (req: AuthRequest, res) => {
 
 router.post('/:id/approve', (req: AuthRequest, res) => {
   const store = getStore();
-  const checklist = store.checklists.find(c => c.id === req.params.id);
+  const checklist = store.checklists.find((c) => c.id === req.params.id);
 
   if (!checklist) {
     res.status(404).json({ error: 'Checklist not found' });
@@ -139,7 +139,7 @@ router.post('/:id/approve', (req: AuthRequest, res) => {
 
 router.post('/:id/deny', (req: AuthRequest, res) => {
   const store = getStore();
-  const checklist = store.checklists.find(c => c.id === req.params.id);
+  const checklist = store.checklists.find((c) => c.id === req.params.id);
 
   if (!checklist) {
     res.status(404).json({ error: 'Checklist not found' });
@@ -153,7 +153,7 @@ router.post('/:id/deny', (req: AuthRequest, res) => {
 
 router.delete('/:id', (req: AuthRequest, res) => {
   const store = getStore();
-  const idx = store.checklists.findIndex(c => c.id === req.params.id);
+  const idx = store.checklists.findIndex((c) => c.id === req.params.id);
 
   if (idx === -1) {
     res.status(404).json({ error: 'Checklist not found' });

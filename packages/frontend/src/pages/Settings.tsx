@@ -46,9 +46,7 @@ export default function Settings() {
 
         <div className={`card ${s.navCard}`} style={{ maxWidth: 400, margin: '16px auto 0' }}>
           <Link to={homeRoute}>Home</Link>
-          {user.role === 'admin' && (
-            <Link to="/settings/roles">Edit Role Assignments</Link>
-          )}
+          {user.role === 'admin' && <Link to="/settings/roles">Edit Role Assignments</Link>}
         </div>
       </div>
     </div>

@@ -1,13 +1,15 @@
 /* ─── Reset & Base ─────────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.5;
@@ -27,19 +29,22 @@ button {
   outline: none;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: inherit;
   font-size: inherit;
   outline: none;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
 /* ─── CSS Variables ───────────────────────────────────────────── */
 :root {
-  --primary: #5B2333;
+  --primary: #5b2333;
   --primary-light: #7a3a4e;
   --primary-dark: #451a28;
   --bg: #f8f8f6;
@@ -68,10 +73,10 @@ ul, ol {
   --radius: 12px;
   --radius-sm: 8px;
   --radius-xs: 6px;
-  --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
-  --shadow-lg: 0 10px 15px rgba(0,0,0,0.06), 0 4px 6px rgba(0,0,0,0.04);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.04);
 }
 
 /* ─── Layout ──────────────────────────────────────────────────── */
@@ -182,7 +187,9 @@ ul, ol {
   font-size: 14px;
   color: var(--text);
   background: var(--white);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .form-input:focus {
@@ -211,7 +218,9 @@ ul, ol {
   color: var(--text);
   background: var(--white);
   appearance: auto;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .form-select:focus {
@@ -261,11 +270,14 @@ ul, ol {
 }
 
 /* ─── No-print utility ───────────────────────────────────────── */
-.no-print {}
+.no-print {
+}
 
 /* ─── Print styles ───────────────────────────────────────────── */
 @media print {
-  .no-print { display: none !important; }
+  .no-print {
+    display: none !important;
+  }
 
   body {
     background: white;

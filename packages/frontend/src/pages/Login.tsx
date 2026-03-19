@@ -55,16 +55,14 @@ export default function Login() {
             />
           </div>
 
-          <button
-            className="btn btn-primary btn-block"
-            type="submit"
-            disabled={loading}
-          >
+          <button className="btn btn-primary btn-block" type="submit" disabled={loading}>
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
-        <a href="#" className={s.forgotLink}>Forgot password?</a>
+        <a href="#" className={s.forgotLink}>
+          Forgot password?
+        </a>
       </div>
     </div>
   );

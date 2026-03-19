@@ -14,7 +14,7 @@ router.get('/', (_req, res) => {
 
 router.get('/:id', (req, res) => {
   const store = getStore();
-  const template = store.templates.find(t => t.id === req.params.id);
+  const template = store.templates.find((t) => t.id === req.params.id);
   if (!template) {
     res.status(404).json({ error: 'Template not found' });
     return;
@@ -40,7 +40,7 @@ router.post('/', adminOnly, (req: AuthRequest, res) => {
 
 router.delete('/:id', adminOnly, (req: AuthRequest, res) => {
   const store = getStore();
-  const idx = store.templates.findIndex(t => t.id === req.params.id);
+  const idx = store.templates.findIndex((t) => t.id === req.params.id);
 
   if (idx === -1) {
     res.status(404).json({ error: 'Template not found' });

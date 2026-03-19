@@ -76,10 +76,7 @@ export default function RoleAssignment() {
               >
                 Operator
               </button>
-              <button
-                className={role === 'admin' ? 'active' : ''}
-                onClick={() => setRole('admin')}
-              >
+              <button className={role === 'admin' ? 'active' : ''} onClick={() => setRole('admin')}>
                 Administrator
               </button>
             </div>

@@ -128,10 +128,7 @@ export default function ChecklistDetail() {
 
             return (
               <div key={catIdx} className={cl.fillCategory}>
-                <button
-                  className={cl.fillCategoryHeader}
-                  onClick={() => toggleCollapse(catIdx)}
-                >
+                <button className={cl.fillCategoryHeader} onClick={() => toggleCollapse(catIdx)}>
                   <div className={cl.fillCategoryLeft}>
                     <span className={`${cl.fillChevron} ${isCollapsed ? '' : cl.fillChevronOpen}`}>
                       &#9654;
@@ -158,7 +155,10 @@ export default function ChecklistDetail() {
                             </span>
                           )}
                           {item.issue && (
-                            <div className={cl.issueBox} style={{ marginTop: 4, padding: '6px 10px', fontSize: 12 }}>
+                            <div
+                              className={cl.issueBox}
+                              style={{ marginTop: 4, padding: '6px 10px', fontSize: 12 }}
+                            >
                               <strong>Issue Reported</strong>
                               {item.issue}
                             </div>
@@ -167,9 +167,20 @@ export default function ChecklistDetail() {
                       </div>
                       <span
                         className={cl.fillTaskStatus}
-                        style={{ color: item.completed === true ? 'var(--green)' : item.completed === false ? 'var(--red)' : 'var(--text-muted)' }}
+                        style={{
+                          color:
+                            item.completed === true
+                              ? 'var(--green)'
+                              : item.completed === false
+                                ? 'var(--red)'
+                                : 'var(--text-muted)',
+                        }}
                       >
-                        {item.completed === true ? '\u2713' : item.completed === false ? '\u2717' : '\u2014'}
+                        {item.completed === true
+                          ? '\u2713'
+                          : item.completed === false
+                            ? '\u2717'
+                            : '\u2014'}
                       </span>
                     </div>
                   ))}
@@ -181,9 +192,7 @@ export default function ChecklistDetail() {
         <div className={s.printOnly}>
           {checklist.machines.map((machine, mIdx) => (
             <div key={mIdx} className={s.printMachine}>
-              <div className={s.printMachineHeader}>
-                {machine.name}
-              </div>
+              <div className={s.printMachineHeader}>{machine.name}</div>
 
               {machine.categories.map((cat, catIdx) => (
                 <div key={catIdx} className={s.printCategory}>
@@ -196,9 +205,20 @@ export default function ChecklistDetail() {
                       <div className={s.printTaskLeft}>
                         <span
                           className={s.printTaskIcon}
-                          style={{ color: item.completed === true ? '#16a34a' : item.completed === false ? '#dc2626' : '#9ca3af' }}
+                          style={{
+                            color:
+                              item.completed === true
+                                ? '#16a34a'
+                                : item.completed === false
+                                  ? '#dc2626'
+                                  : '#9ca3af',
+                          }}
                         >
-                          {item.completed === true ? '\u2713' : item.completed === false ? '\u2717' : '\u2014'}
+                          {item.completed === true
+                            ? '\u2713'
+                            : item.completed === false
+                              ? '\u2717'
+                              : '\u2014'}
                         </span>
                         <div className={s.printTaskInfo}>
                           <span className={s.printTaskText}>{item.description}</span>
@@ -212,8 +232,14 @@ export default function ChecklistDetail() {
                           )}
                         </div>
                       </div>
-                      <span className={`${s.printTaskLabel} ${item.completed === true ? s.printComplete : item.completed === false ? s.printIncomplete : s.printPending}`}>
-                        {item.completed === true ? 'Complete' : item.completed === false ? 'Incomplete' : 'Pending'}
+                      <span
+                        className={`${s.printTaskLabel} ${item.completed === true ? s.printComplete : item.completed === false ? s.printIncomplete : s.printPending}`}
+                      >
+                        {item.completed === true
+                          ? 'Complete'
+                          : item.completed === false
+                            ? 'Incomplete'
+                            : 'Pending'}
                       </span>
                     </div>
                   ))}
@@ -222,7 +248,6 @@ export default function ChecklistDetail() {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );

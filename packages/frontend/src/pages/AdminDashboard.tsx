@@ -23,16 +23,16 @@ export default function AdminDashboard() {
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!user) { navigate('/login'); return; }
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     loadData();
   }, [user]);
 
   const loadData = async () => {
     try {
-      const [cls, lns] = await Promise.all([
-        api.getChecklists(),
-        api.getLines(),
-      ]);
+      const [cls, lns] = await Promise.all([api.getChecklists(), api.getLines()]);
       setChecklists(cls);
       setLines(lns);
     } catch {
@@ -50,9 +50,7 @@ export default function AdminDashboard() {
   if (search) {
     const q = search.toLowerCase();
     filtered = filtered.filter(
-      (c) =>
-        c.operatorName.toLowerCase().includes(q) ||
-        c.lineName.toLowerCase().includes(q)
+      (c) => c.operatorName.toLowerCase().includes(q) || c.lineName.toLowerCase().includes(q),
     );
   }
 
@@ -69,11 +67,6 @@ export default function AdminDashboard() {
     submitted: checklists.filter((c) => c.status === 'submitted').length,
     approved: checklists.filter((c) => c.status === 'approved').length,
     in_progress: checklists.filter((c) => c.status === 'in_progress').length,
-  };
-
-  const confirmDelete = (e: React.MouseEvent, id: string) => {
-    e.stopPropagation();
-    setDeleteTarget(id);
   };
 
   const handleDelete = async () => {
@@ -147,12 +140,12 @@ export default function AdminDashboard() {
         </div>
 
         <div className={d.dashTabs}>
-          {([
+          {[
             { key: 'all' as Tab, label: 'All', count: counts.all },
             { key: 'submitted' as Tab, label: 'Pending', count: counts.submitted },
             { key: 'approved' as Tab, label: 'Approved', count: counts.approved },
             { key: 'in_progress' as Tab, label: 'In Progress', count: counts.in_progress },
-          ]).map((t) => (
+          ].map((t) => (
             <button
               key={t.key}
               className={`${d.dashTab} ${tab === t.key ? d.dashTabActive : ''}`}
@@ -177,7 +170,8 @@ export default function AdminDashboard() {
               <div className={d.dashRowInfo}>
                 <span className={d.dashRowLine}>{cl.lineName}</span>
                 <span className={d.dashRowSub}>
-                  {cl.operatorName} &middot; {formatDate(cl.startTime)} &middot; {formatTime(cl.startTime)}
+                  {cl.operatorName} &middot; {formatDate(cl.startTime)} &middot;{' '}
+                  {formatTime(cl.startTime)}
                 </span>
               </div>
               <div className={d.dashRowRight}>
@@ -186,11 +180,7 @@ export default function AdminDashboard() {
               </div>
             </div>
           ))}
-          {filtered.length === 0 && (
-            <div className={d.dashEmpty}>
-              No checklists found
-            </div>
-          )}
+          {filtered.length === 0 && <div className={d.dashEmpty}>No checklists found</div>}
         </div>
       </div>
 

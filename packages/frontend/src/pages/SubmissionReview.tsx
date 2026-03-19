@@ -35,9 +35,7 @@ export default function SubmissionReview() {
     );
   }
 
-  const allItems = checklist.machines.flatMap((m) =>
-    m.categories.flatMap((c) => c.items)
-  );
+  const allItems = checklist.machines.flatMap((m) => m.categories.flatMap((c) => c.items));
   const completeCount = allItems.filter((i) => i.completed !== null).length;
   const incompleteCount = allItems.length - completeCount;
 
@@ -75,8 +73,8 @@ export default function SubmissionReview() {
           task: i.description,
           note: i.issue!,
           completedBy: i.completedBy,
-        }))
-    )
+        })),
+    ),
   );
 
   const currentMachine = checklist.machines[activeMachine];
@@ -95,9 +93,7 @@ export default function SubmissionReview() {
           &larr; Back
         </button>
 
-        <h2 style={{ marginBottom: 2 }}>
-          {checklist.lineName} - Submission Review
-        </h2>
+        <h2 style={{ marginBottom: 2 }}>{checklist.lineName} - Submission Review</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: 13, marginBottom: 20 }}>
           {formatDate(start)} - {formatTime(start)}
         </p>
@@ -123,12 +119,11 @@ export default function SubmissionReview() {
 
               return (
                 <div key={catIdx} className={cl.fillCategory}>
-                  <button
-                    className={cl.fillCategoryHeader}
-                    onClick={() => toggleCollapse(catIdx)}
-                  >
+                  <button className={cl.fillCategoryHeader} onClick={() => toggleCollapse(catIdx)}>
                     <div className={cl.fillCategoryLeft}>
-                      <span className={`${cl.fillChevron} ${isCollapsed ? '' : cl.fillChevronOpen}`}>
+                      <span
+                        className={`${cl.fillChevron} ${isCollapsed ? '' : cl.fillChevronOpen}`}
+                      >
                         &#9654;
                       </span>
                       <span className={cl.fillCategoryName}>{cat.name}</span>
@@ -153,7 +148,10 @@ export default function SubmissionReview() {
                               </span>
                             )}
                             {item.issue && (
-                              <div className={cl.issueBox} style={{ marginTop: 4, padding: '6px 10px', fontSize: 12 }}>
+                              <div
+                                className={cl.issueBox}
+                                style={{ marginTop: 4, padding: '6px 10px', fontSize: 12 }}
+                              >
                                 <strong>Issue Reported</strong>
                                 {item.issue}
                               </div>
@@ -162,9 +160,20 @@ export default function SubmissionReview() {
                         </div>
                         <span
                           className={cl.fillTaskStatus}
-                          style={{ color: item.completed === true ? 'var(--green)' : item.completed === false ? 'var(--red)' : 'var(--text-muted)' }}
+                          style={{
+                            color:
+                              item.completed === true
+                                ? 'var(--green)'
+                                : item.completed === false
+                                  ? 'var(--red)'
+                                  : 'var(--text-muted)',
+                          }}
                         >
-                          {item.completed === true ? '\u2713' : item.completed === false ? '\u2717' : '\u2014'}
+                          {item.completed === true
+                            ? '\u2713'
+                            : item.completed === false
+                              ? '\u2717'
+                              : '\u2014'}
                         </span>
                       </div>
                     ))}
@@ -229,7 +238,9 @@ export default function SubmissionReview() {
                 <div key={idx} className={s.machineRow}>
                   <div className={s.machineRowTop}>
                     <span className={s.machineName}>{ms.name}</span>
-                    <span className={s.machineCount}>{ms.done}/{ms.total}</span>
+                    <span className={s.machineCount}>
+                      {ms.done}/{ms.total}
+                    </span>
                   </div>
                   <div className={s.progressBar}>
                     <div

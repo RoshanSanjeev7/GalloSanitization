@@ -39,8 +39,3 @@ export function save(): void {
 export function getStore(): StoreData {
   return data;
 }
-
-export function setStore(newData: StoreData): void {
-  data = newData;
-  save();
-}

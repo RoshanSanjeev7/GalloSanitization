@@ -22,7 +22,10 @@ export default function OperatorDashboard() {
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!user) { navigate('/login'); return; }
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     loadData();
   }, [user]);
 
@@ -113,12 +116,12 @@ export default function OperatorDashboard() {
         </div>
 
         <div className={d.dashTabs}>
-          {([
+          {[
             { key: 'in_progress' as Tab, label: 'In Progress', count: counts.in_progress },
             { key: 'submitted' as Tab, label: 'Pending Review', count: counts.submitted },
             { key: 'completed' as Tab, label: 'Completed', count: counts.completed },
             { key: 'all' as Tab, label: 'All', count: counts.all },
-          ]).map((t) => (
+          ].map((t) => (
             <button
               key={t.key}
               className={`${d.dashTab} ${tab === t.key ? d.dashTabActive : ''}`}
@@ -160,11 +163,7 @@ export default function OperatorDashboard() {
               </div>
             </div>
           ))}
-          {filtered.length === 0 && (
-            <div className={d.dashEmpty}>
-              No checklists found
-            </div>
-          )}
+          {filtered.length === 0 && <div className={d.dashEmpty}>No checklists found</div>}
         </div>
       </div>
 
@@ -190,11 +189,7 @@ export default function OperatorDashboard() {
             <button className="btn btn-outline" onClick={() => setShowModal(false)}>
               Cancel
             </button>
-            <button
-              className="btn btn-primary"
-              onClick={handleCreate}
-              disabled={!selectedLine}
-            >
+            <button className="btn btn-primary" onClick={handleCreate} disabled={!selectedLine}>
               Create
             </button>
           </div>

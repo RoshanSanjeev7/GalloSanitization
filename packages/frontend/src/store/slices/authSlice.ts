@@ -22,10 +22,10 @@ export const loginUser = createAsyncThunk(
     } catch (err) {
       return rejectWithValue((err as Error).message);
     }
-  }
+  },
 );
 
-export const fetchMe = createAsyncThunk('auth/fetchMe', async (_, { rejectWithValue }) => {
+const fetchMe = createAsyncThunk('auth/fetchMe', async (_, { rejectWithValue }) => {
   try {
     return await api.getMe();
   } catch (err) {

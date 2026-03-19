@@ -45,9 +45,12 @@ async function request<T = unknown>(endpoint: string, options: RequestInit = {})
         window.location.href = '/login';
       }
     }
-    const msg = typeof data === 'object' && data !== null
-      ? (data as Record<string, string>).message || (data as Record<string, string>).error || 'Request failed'
-      : String(data);
+    const msg =
+      typeof data === 'object' && data !== null
+        ? (data as Record<string, string>).message ||
+          (data as Record<string, string>).error ||
+          'Request failed'
+        : String(data);
     const error = new Error(msg) as Error & { status: number };
     error.status = res.status;
     throw error;
@@ -129,7 +132,7 @@ async function getLines(): Promise<Line[]> {
 }
 
 // ─── Templates ──────────────────────────────────────────────────────
-export interface TaskTemplate {
+interface TaskTemplate {
   description: string;
   machine: string | null;
 }
@@ -144,7 +147,7 @@ export interface MachineTemplate {
   categories: CategoryTemplate[];
 }
 
-export interface Template {
+interface Template {
   id: string;
   title: string;
   lineId: string;
@@ -175,7 +178,7 @@ async function deleteTemplate(id: string): Promise<void> {
 }
 
 // ─── Checklists ─────────────────────────────────────────────────────
-export interface ChecklistItem {
+interface ChecklistItem {
   description: string;
   machine: string | null;
   completed: boolean | null;
@@ -184,7 +187,7 @@ export interface ChecklistItem {
   issue: string | null;
 }
 
-export interface ChecklistCategory {
+interface ChecklistCategory {
   name: string;
   items: ChecklistItem[];
 }
@@ -224,10 +227,7 @@ async function createChecklist(checklistData: { lineId: string }): Promise<Check
   });
 }
 
-async function updateChecklistItems(
-  id: string,
-  machines: ChecklistMachine[]
-): Promise<Checklist> {
+async function updateChecklistItems(id: string, machines: ChecklistMachine[]): Promise<Checklist> {
   return request<Checklist>(`/checklists/${id}/items`, {
     method: 'PUT',
     body: JSON.stringify({ machines }),

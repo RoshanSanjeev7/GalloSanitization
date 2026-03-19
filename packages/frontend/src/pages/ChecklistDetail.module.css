@@ -155,7 +155,9 @@
 }
 
 @media print {
-  .print-only { display: block !important; }
+  .print-only {
+    display: block !important;
+  }
 
   .print-header {
     display: flex !important;
@@ -193,7 +195,7 @@
     font-size: 13px;
     padding: 4px 0;
     margin-bottom: 6px;
-    color: #5B2333;
+    color: #5b2333;
     border-bottom-width: 1.5px;
   }
 

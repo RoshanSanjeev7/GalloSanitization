@@ -36,7 +36,9 @@
   margin-bottom: -1px;
   cursor: pointer;
   text-align: center;
-  transition: color 0.15s, border-color 0.15s;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
 }
 
 .dash-tab:hover:not(.dash-tab-active) {
@@ -64,7 +66,9 @@
   border-radius: var(--radius);
   padding: 16px 20px;
   cursor: pointer;
-  transition: box-shadow 0.15s, border-color 0.15s;
+  transition:
+    box-shadow 0.15s,
+    border-color 0.15s;
 }
 
 .dash-row:hover {

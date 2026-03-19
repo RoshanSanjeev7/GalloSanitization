@@ -43,19 +43,18 @@ export default function ChecklistFill() {
                 return {
                   ...item,
                   completed: newStatus,
-                  completedBy: newStatus !== null ? (currentUser?.name || 'Unknown') : null,
+                  completedBy: newStatus !== null ? currentUser?.name || 'Unknown' : null,
                   completedAt: newStatus !== null ? new Date().toISOString() : null,
                 };
               }),
             };
           }),
         };
-      })
+      }),
     );
   };
 
-  const itemKey = (catIdx: number, itemIdx: number) =>
-    `${activeMachine}-${catIdx}-${itemIdx}`;
+  const itemKey = (catIdx: number, itemIdx: number) => `${activeMachine}-${catIdx}-${itemIdx}`;
 
   const collapseKey = (catIdx: number) => `${activeMachine}-${catIdx}`;
 
@@ -127,8 +126,7 @@ export default function ChecklistFill() {
 
         <h2 style={{ marginBottom: 4 }}>{checklist.lineName} &mdash; Deep Clean</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: 13, marginBottom: 16 }}>
-          {checklist.operatorName} &middot; Started{' '}
-          {new Date(checklist.startTime).toLocaleString()}
+          {checklist.operatorName} &middot; Started {new Date(checklist.startTime).toLocaleString()}
         </p>
 
         <select
@@ -139,7 +137,10 @@ export default function ChecklistFill() {
         >
           {machines.map((m, idx) => {
             const total = m.categories.reduce((sum, c) => sum + c.items.length, 0);
-            const done = m.categories.reduce((sum, c) => sum + c.items.filter(i => i.completed !== null).length, 0);
+            const done = m.categories.reduce(
+              (sum, c) => sum + c.items.filter((i) => i.completed !== null).length,
+              0,
+            );
             return (
               <option key={idx} value={idx}>
                 {m.name} ({done}/{total})
@@ -154,10 +155,7 @@ export default function ChecklistFill() {
 
           return (
             <div key={catIdx} className={cl.fillCategory}>
-              <button
-                className={cl.fillCategoryHeader}
-                onClick={() => toggleCollapse(catIdx)}
-              >
+              <button className={cl.fillCategoryHeader} onClick={() => toggleCollapse(catIdx)}>
                 <div className={cl.fillCategoryLeft}>
                   <span className={`${cl.fillChevron} ${isCollapsed ? '' : cl.fillChevronOpen}`}>
                     &#9654;
@@ -201,7 +199,8 @@ export default function ChecklistFill() {
                       <div className={s.fillItemFooter}>
                         {item.completed !== null && item.completedBy && (
                           <span className={cl.fillStamp}>
-                            {item.completedBy}{item.completedAt ? ` at ${formatStamp(item.completedAt)}` : ''}
+                            {item.completedBy}
+                            {item.completedAt ? ` at ${formatStamp(item.completedAt)}` : ''}
                           </span>
                         )}
                         <button

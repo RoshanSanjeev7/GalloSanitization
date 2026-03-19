@@ -11,7 +11,7 @@ export interface Line {
   name: string;
 }
 
-export interface TaskTemplate {
+interface TaskTemplate {
   description: string;
   machine: string | null;
 }
@@ -33,7 +33,7 @@ export interface Template {
   machines: MachineTemplate[];
 }
 
-export interface ChecklistItem {
+interface ChecklistItem {
   description: string;
   machine: string | null;
   completed: boolean | null;
@@ -42,7 +42,7 @@ export interface ChecklistItem {
   issue: string | null;
 }
 
-export interface ChecklistCategory {
+interface ChecklistCategory {
   name: string;
   items: ChecklistItem[];
 }
@@ -64,5 +64,3 @@ export interface Checklist {
   endTime: string | null;
   machines: ChecklistMachine[];
 }
-
-export type UserPublic = Omit<User, 'password'>;

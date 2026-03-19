@@ -9,7 +9,7 @@ router.use(authMiddleware);
 
 router.get('/', (req, res) => {
   const store = getStore();
-  const users = store.users.map(({ password, ...rest }) => rest);
+  const users = store.users.map(({ password: _password, ...rest }) => rest);
   res.json(users);
 });
 
@@ -22,7 +22,7 @@ router.post('/', adminOnly, (req: AuthRequest, res) => {
   }
 
   const store = getStore();
-  if (store.users.find(u => u.email === email)) {
+  if (store.users.find((u) => u.email === email)) {
     res.status(409).json({ error: 'Email already exists' });
     return;
   }
@@ -31,14 +31,14 @@ router.post('/', adminOnly, (req: AuthRequest, res) => {
   store.users.push(user);
   save();
 
-  const { password: _, ...userPublic } = user;
+  const { password: _password, ...userPublic } = user;
   res.status(201).json(userPublic);
 });
 
 router.put('/:id', adminOnly, (req: AuthRequest, res) => {
   const { role } = req.body;
   const store = getStore();
-  const user = store.users.find(u => u.id === req.params.id);
+  const user = store.users.find((u) => u.id === req.params.id);
 
   if (!user) {
     res.status(404).json({ error: 'User not found' });
@@ -48,13 +48,13 @@ router.put('/:id', adminOnly, (req: AuthRequest, res) => {
   if (role) user.role = role;
   save();
 
-  const { password: _, ...userPublic } = user;
+  const { password: _password, ...userPublic } = user;
   res.json(userPublic);
 });
 
 router.delete('/:id', adminOnly, (req: AuthRequest, res) => {
   const store = getStore();
-  const idx = store.users.findIndex(u => u.id === req.params.id);
+  const idx = store.users.findIndex((u) => u.id === req.params.id);
 
   if (idx === -1) {
     res.status(404).json({ error: 'User not found' });

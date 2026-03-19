@@ -15,33 +15,31 @@ router.post('/login', (req, res) => {
   }
 
   const store = getStore();
-  const user = store.users.find(u => u.email === email);
+  const user = store.users.find((u) => u.email === email);
 
   if (!user || user.password !== password) {
     res.status(401).json({ error: 'Invalid credentials' });
     return;
   }
 
-  const token = jwt.sign(
-    { userId: user.id, role: user.role },
-    config.jwtSecret,
-    { expiresIn: '24h' }
-  );
+  const token = jwt.sign({ userId: user.id, role: user.role }, config.jwtSecret, {
+    expiresIn: '24h',
+  });
 
-  const { password: _, ...userPublic } = user;
+  const { password: _password, ...userPublic } = user;
   res.json({ user: userPublic, token });
 });
 
 router.get('/me', authMiddleware, (req: AuthRequest, res) => {
   const store = getStore();
-  const user = store.users.find(u => u.id === req.userId);
+  const user = store.users.find((u) => u.id === req.userId);
 
   if (!user) {
     res.status(404).json({ error: 'User not found' });
     return;
   }
 
-  const { password: _, ...userPublic } = user;
+  const { password: _password, ...userPublic } = user;
   res.json(userPublic);
 });
 

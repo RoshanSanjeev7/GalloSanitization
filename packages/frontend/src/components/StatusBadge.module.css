@@ -9,13 +9,15 @@
   border: 1px solid transparent;
 }
 
-.badge-approved, .badge-complete {
+.badge-approved,
+.badge-complete {
   background-color: var(--green-light);
   color: var(--green);
   border-color: var(--green-border);
 }
 
-.badge-pending, .badge-submitted {
+.badge-pending,
+.badge-submitted {
   background-color: var(--amber-light);
   color: var(--amber);
   border-color: var(--amber-border);
@@ -27,7 +29,8 @@
   border-color: var(--red-border);
 }
 
-.badge-in-progress, .badge-in_progress {
+.badge-in-progress,
+.badge-in_progress {
   background-color: var(--blue-light);
   color: var(--blue);
   border-color: var(--blue-border);
