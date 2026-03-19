@@ -85,10 +85,9 @@ export default function SubmissionReview() {
         </p>
 
         <select
-          className="form-select"
+          className="form-select mb-4"
           value={activeMachine}
           onChange={(e) => setActiveMachine(Number(e.target.value))}
-          style={{ marginBottom: 16 }}
         >
           {checklist.machines.map((m, idx) => (
             <option key={idx} value={idx}>

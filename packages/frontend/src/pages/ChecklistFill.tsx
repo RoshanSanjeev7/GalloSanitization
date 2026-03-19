@@ -116,16 +116,15 @@ export default function ChecklistFill() {
           &larr; Back
         </button>
 
-        <h2 style={{ marginBottom: 4 }}>{checklist.lineName} &mdash; Deep Clean</h2>
+        <h2 className="mb-1">{checklist.lineName} &mdash; Deep Clean</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: 13, marginBottom: 16 }}>
           {checklist.operatorName} &middot; Started {new Date(checklist.startTime).toLocaleString()}
         </p>
 
         <select
-          className="form-select"
+          className="form-select mb-4"
           value={activeMachine}
           onChange={(e) => setActiveMachine(Number(e.target.value))}
-          style={{ marginBottom: 16 }}
         >
           {machines.map((m, idx) => {
             const total = m.categories.reduce((sum, c) => sum + c.items.length, 0);

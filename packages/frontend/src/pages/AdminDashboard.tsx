@@ -92,11 +92,10 @@ export default function AdminDashboard() {
 
         <div className={d.adminFilterBar}>
           <input
-            className="form-input"
+            className="form-input flex-1"
             placeholder="Search operator or line..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ flex: 1 }}
           />
           <select
             className="form-select"
