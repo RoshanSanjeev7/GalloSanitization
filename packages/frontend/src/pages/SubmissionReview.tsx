@@ -4,13 +4,14 @@ import api, { type Checklist } from '../services/api';
 import cl from '../styles/checklist.module.css';
 import s from './SubmissionReview.module.css';
 import { formatTime, formatFullDate } from '../utils';
+import { useCollapsible } from '../hooks';
 
 export default function SubmissionReview() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [checklist, setChecklist] = useState<Checklist | null>(null);
   const [activeMachine, setActiveMachine] = useState(0);
-  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const { toggle, isCollapsed } = useCollapsible();
 
   useEffect(() => {
     if (id) api.getChecklist(id).then(setChecklist);
@@ -71,11 +72,6 @@ export default function SubmissionReview() {
 
   const collapseKey = (catIdx: number) => `${activeMachine}-${catIdx}`;
 
-  const toggleCollapse = (catIdx: number) => {
-    const key = collapseKey(catIdx);
-    setCollapsed((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
   return (
     <div className="page-container">
       <div className="main-content">
@@ -104,15 +100,15 @@ export default function SubmissionReview() {
         <div className={s.reviewLayout}>
           <div>
             {currentMachine.categories.map((cat, catIdx) => {
-              const isCollapsed = collapsed[collapseKey(catIdx)] ?? false;
+              const catCollapsed = isCollapsed(collapseKey(catIdx));
               const doneCount = cat.items.filter((i) => i.completed !== null).length;
 
               return (
                 <div key={catIdx} className={cl.fillCategory}>
-                  <button className={cl.fillCategoryHeader} onClick={() => toggleCollapse(catIdx)}>
+                  <button className={cl.fillCategoryHeader} onClick={() => toggle(collapseKey(catIdx))}>
                     <div className={cl.fillCategoryLeft}>
                       <span
-                        className={`${cl.fillChevron} ${isCollapsed ? '' : cl.fillChevronOpen}`}
+                        className={`${cl.fillChevron} ${catCollapsed ? '' : cl.fillChevronOpen}`}
                       >
                         &#9654;
                       </span>
@@ -123,7 +119,7 @@ export default function SubmissionReview() {
                     </span>
                   </button>
 
-                  {!isCollapsed &&
+                  {!catCollapsed &&
                     cat.items.map((item, itemIdx) => (
                       <div key={itemIdx} className={cl.fillTask}>
                         <div className={cl.fillTaskLeft}>

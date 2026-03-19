@@ -4,6 +4,7 @@ import api, { type Checklist, type ChecklistMachine } from '../services/api';
 import cl from '../styles/checklist.module.css';
 import s from './ChecklistFill.module.css';
 import { formatTime } from '../utils';
+import { useCollapsible } from '../hooks';
 
 export default function ChecklistFill() {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +14,7 @@ export default function ChecklistFill() {
   const [activeMachine, setActiveMachine] = useState(0);
   const [commentInputs, setCommentInputs] = useState<Record<string, string>>({});
   const [showComment, setShowComment] = useState<Record<string, boolean>>({});
-  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const { toggle, isCollapsed } = useCollapsible();
 
   const currentUser = api.getStoredUser();
 
@@ -58,11 +59,6 @@ export default function ChecklistFill() {
   const itemKey = (catIdx: number, itemIdx: number) => `${activeMachine}-${catIdx}-${itemIdx}`;
 
   const collapseKey = (catIdx: number) => `${activeMachine}-${catIdx}`;
-
-  const toggleCollapse = (catIdx: number) => {
-    const key = collapseKey(catIdx);
-    setCollapsed((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
 
   const toggleComment = (catIdx: number, itemIdx: number) => {
     const key = itemKey(catIdx, itemIdx);
@@ -146,14 +142,14 @@ export default function ChecklistFill() {
         </select>
 
         {currentMachine.categories.map((cat, catIdx) => {
-          const isCollapsed = collapsed[collapseKey(catIdx)] ?? false;
+          const catCollapsed = isCollapsed(collapseKey(catIdx));
           const doneCount = cat.items.filter((i) => i.completed !== null).length;
 
           return (
             <div key={catIdx} className={cl.fillCategory}>
-              <button className={cl.fillCategoryHeader} onClick={() => toggleCollapse(catIdx)}>
+              <button className={cl.fillCategoryHeader} onClick={() => toggle(collapseKey(catIdx))}>
                 <div className={cl.fillCategoryLeft}>
-                  <span className={`${cl.fillChevron} ${isCollapsed ? '' : cl.fillChevronOpen}`}>
+                  <span className={`${cl.fillChevron} ${catCollapsed ? '' : cl.fillChevronOpen}`}>
                     &#9654;
                   </span>
                   <span className={cl.fillCategoryName}>{cat.name}</span>
@@ -163,7 +159,7 @@ export default function ChecklistFill() {
                 </span>
               </button>
 
-              {!isCollapsed &&
+              {!catCollapsed &&
                 cat.items.map((item, itemIdx) => {
                   const key = itemKey(catIdx, itemIdx);
 
