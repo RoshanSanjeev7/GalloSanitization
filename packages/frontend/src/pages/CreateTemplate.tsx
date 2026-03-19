@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api, { type Line, type MachineTemplate } from '../services/api';
 import s from './CreateTemplate.module.css';
+import CategoryEditor from '../components/CategoryEditor';
 
 interface TaskState {
   description: string;
@@ -261,45 +262,17 @@ export default function CreateTemplate() {
           </div>
 
           {currentMachine.categories.map((cat, catIdx) => (
-            <div key={catIdx} className={s.templateSection}>
-              <div
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-              >
-                <span className={s.sectionHeader}>CATEGORY NAME</span>
-                {currentMachine.categories.length > 1 && (
-                  <button className={s.removeBtn} onClick={() => removeCategory(catIdx)}>
-                    &times;
-                  </button>
-                )}
-              </div>
-              <input
-                className="form-input"
-                placeholder="e.g. Prep"
-                value={cat.name}
-                onChange={(e) => updateCategory(catIdx, e.target.value)}
-                style={{ marginBottom: 12 }}
-              />
-
-              <span className={s.sectionHeader}>TASKS</span>
-              {cat.tasks.map((task, taskIdx) => (
-                <div key={taskIdx} className={s.taskInputRow}>
-                  <input
-                    className="form-input"
-                    placeholder="Enter task description..."
-                    value={task.description}
-                    onChange={(e) => updateTask(catIdx, taskIdx, e.target.value)}
-                  />
-                  {cat.tasks.length > 1 && (
-                    <button className={s.removeBtn} onClick={() => removeTask(catIdx, taskIdx)}>
-                      &times;
-                    </button>
-                  )}
-                </div>
-              ))}
-              <button className={s.addLink} onClick={() => addTask(catIdx)}>
-                + Add Task
-              </button>
-            </div>
+            <CategoryEditor
+              key={catIdx}
+              cat={cat}
+              catIdx={catIdx}
+              showRemove={currentMachine.categories.length > 1}
+              onUpdateCategory={updateCategory}
+              onRemoveCategory={removeCategory}
+              onUpdateTask={updateTask}
+              onAddTask={addTask}
+              onRemoveTask={removeTask}
+            />
           ))}
         </div>
 
